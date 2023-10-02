@@ -7,7 +7,7 @@ class Scraper:
         self.url = url
         self.page = requests.get(url)
         self.soup = BeautifulSoup(self.page.content, 'html.parser')
-        self.classNames = json.load(open('classNames.json'))
+        self.classNames = json.load(open('./assets/data/classNames.json'))
         
     def getUrl(self):
         return self.url
@@ -30,3 +30,4 @@ class Scraper:
     def getCardTitle(self, article):
         return article.find('h2', {'class': self.classNames["cardTitle"]}).text
 
+    
