@@ -1,0 +1,25 @@
+{
+  "name": "subito-web-scraper",
+  "version": "1.0.0",
+  "description": "web scraper for subito.it",
+  "main": "main.py",
+  "scripts": {
+    "start": "python3 main.py",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleganza/subito.it-web-scraper.git"
+  },
+  "keywords": [
+    "subito",
+    "scraper",
+    "python"
+  ],
+  "author": "aleganza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aleganza/subito.it-web-scraper/issues"
+  },
+  "homepage": "https://github.com/aleganza/subito.it-web-scraper#readme"
+}
