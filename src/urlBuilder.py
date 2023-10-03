@@ -6,7 +6,7 @@ class URLBuilder:
         self.PROVINCES_JSON = json.load(open('./assets/data/italyProvinces.json'))
         self.REGIONS_JSON = json.load(open('./assets/data/italyRegions.json'))
 
-    def __parsePlace(self, place):
+    def __parsePlace(self, place: str):
         return place.replace(' ', '-').replace('\'', '-').lower()
 
     def __getProvinces(self):
@@ -15,10 +15,10 @@ class URLBuilder:
     def __getRegions(self):
         return [self.__parsePlace(d) for d in self.REGIONS_JSON]
 
-    def __getProvincesFromRegion(self, region):
+    def __getProvincesFromRegion(self, region: str):
         return [self.__parsePlace(d["nome"]) for d in self.PROVINCES_JSON if self.__parsePlace(d["regione"]) == self.__parsePlace(region)]
 
-    def __getRegionFromProvince(self, province):
+    def __getRegionFromProvince(self, province: str):
         return [self.__parsePlace(d["regione"]) for d in self.PROVINCES_JSON if self.__parsePlace(d["nome"]) == self.__parsePlace(province)][0]
 
 

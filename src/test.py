@@ -1,13 +1,9 @@
 from scraper import Scraper
 from bs4 import BeautifulSoup
 from urlBuilder import URLBuilder
-    
-
-URL = 'https://www.subito.it/annunci-emilia-romagna/vendita/usato/ferrara/ferrara/?q=iPhone%2011'
-URL = 'https://www.subito.it/annunci-emilia-romagna/vendita/usato/?q=iPhone+11'
 
 urlBuilder = URLBuilder()
-URL = urlBuilder.buildUrl('iPhone 11', 'mantova', 'usato', True, 4, True)
+URL = urlBuilder.buildUrl('iPhone 11', 'mantova', 'usato', True, False, True)
 scraper = Scraper(URL)
 
 print(URL)
