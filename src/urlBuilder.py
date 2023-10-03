@@ -22,24 +22,30 @@ class URLBuilder:
         return [self.__parsePlace(d["regione"]) for d in self.PROVINCES_JSON if self.__parsePlace(d["nome"]) == self.__parsePlace(province)][0]
 
 
-    def buildUrl(self, query: str, place: str, category: str = 'usato', municipalityOnly: bool = False, shippingOnly: bool = False, titleOnly: bool = False):
+    def buildUrl(self, query: str, place: str, category: str = 'usato', municipalityOnly: bool = False, titleOnly: bool = False, shippingOnly: bool = False):
         domain = 'https://www.subito.it/'
-        query = urllib.parse.quote_plus(query)
         
         place = self.__parsePlace(place)
+        query = urllib.parse.quote_plus(query)
+        municipality = ''
+        province = ''
+        title = '&qso=true' if titleOnly else ''
+        shipping = '&shp=true' if shippingOnly else ''
             
-        if place in self.__getProvinces(): 
+        if place in self.__getProvinces():
+            if municipalityOnly:
+                municipality = '/' + place
+            
             province = place
-            region = self.__getRegionFromProvince(place)
-            
+            region = self.__getRegionFromProvince(place)   
         elif place in self.__getRegions():
-            province = ''
+            if municipalityOnly:
+                raise ValueError(f'municipalityOnly argument cannot be True if place is not a province!')
+            
             region = place
-        
         else:
             raise ValueError(f'Place argument ({place}) is not a valid argument!')
             
-
-        # TODO: usato should be a category, query not right
-        return (f'{domain}annunci-{region}/vendita/{category}/{province}/?q={query}')
+        
+        return (f'{domain}annunci-{region}/vendita/{category}/{province}{municipality}/?q={query}{title}{shipping}')
             

@@ -7,10 +7,12 @@ URL = 'https://www.subito.it/annunci-emilia-romagna/vendita/usato/ferrara/ferrar
 URL = 'https://www.subito.it/annunci-emilia-romagna/vendita/usato/?q=iPhone+11'
 
 urlBuilder = URLBuilder()
-URL = urlBuilder.buildUrl('iPhone 11', 'mantova', 'usato', 3, 4, 5)
+URL = urlBuilder.buildUrl('iPhone 11', 'mantova', 'usato', True, 4, True)
 scraper = Scraper(URL)
 
-if scraper.getPage().status_code == 200:
+print(URL)
+
+if scraper.getPage().status_code == 199:
     articlesNumber = scraper.getArticlesNumber()
     pageTitle = scraper.getPageTitle()
     
