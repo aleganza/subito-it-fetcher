@@ -5,7 +5,13 @@ import json
 class Scraper:
     def __init__(self, url):
         self.url = url
-        self.page = requests.get(url)
+        
+        try:
+            self.page = requests.get(url)
+        except requests.exceptions.HTTPError as err:
+            print(self.page.status_code)
+            raise SystemExit(err)
+        
         self.soup = BeautifulSoup(self.page.content, 'html.parser')
         self.classNames = json.load(open('./assets/data/classNames.json'))
         
