@@ -4,7 +4,8 @@
   "description": "web scraper for subito.it",
   "main": "main.py",
   "scripts": {
-    "start": "python src/test.py",
+    "startWin": "python src/test.py",
+    "startLin": "python3 src/test.py",
     "test": "test"
   },
   "repository": {

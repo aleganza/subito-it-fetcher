@@ -2,46 +2,39 @@ from scraper import Scraper
 from bs4 import BeautifulSoup
 import json
 
+PROVINCES_JSON = json.load(open('./assets/data/italyProvinces.json'))
+REGIONS_JSON = json.load(open('./assets/data/italyRegions.json'))
+
 def parsePlace(place):
     return place.replace(' ', '-').replace('\'', '-').lower()
+
+def getProvinces():
+    return [parsePlace(d["nome"]) for d in PROVINCES_JSON if "nome" in d]
+
+# TODO: do parsePlace of PROVINCES_JSON
+def getProvincesFromRegion(region):
+    return [parsePlace(d["nome"]) for d in PROVINCES_JSON if d["regione"] == region]
+
 
 def buildUrl(query: str, place: str, category: str, municipalityOnly: bool, shippingOnly: bool, titleOnly: bool):
     domain = 'https://www.subito.it/'
     
-    place = place.replace(' ', '-').replace('\'', '-').lower()
-    
-    # create regions array
-    regions = []
-    
-    for regionName in json.load(open('./assets/data/italyRegions.json')):
-        regions.append(regionName["nome"].replace(' ', '-').replace('\'', '-').lower())
-    
-    province = ''
-    
-    if place not in regions:
-        # create places array
-        places = json.load(open('./assets/data/italyProvinces.json'))
+    place = parsePlace(place) # get formatted version of place argument
         
-        ''' for placeInfo in json.load(open('./assets/data/italyProvinces.json')):
-            places.append({"name": placeInfo["nome"].replace(' ', '-').replace('\'', '-').lower(), 
-                           "region": placeInfo["regione"].replace(' ', '-').replace('\'', '-').lower()}) '''
-        
-        if place not in places[0].values():
-            raise ValueError(f'Region ({place} is not a valid argument!)')
-        else:
-            province = place + '/'
-            place = 'we'
-    
+    if place not in getProvinces(): # if argument place is a region
+        raise ValueError(f'Place argument ({place}) is not a valid argument!')
+    else:
+        print("è una provincia")
     
     # TODO: usato should be a category
-    return (f'{domain}annunci-{place}/vendita/usato/{province}')
+    return (f'{domain}annunci-{place}/vendita/usato/')
     
 
 URL = 'https://www.subito.it/annunci-emilia-romagna/vendita/usato/ferrara/ferrara/?q=iPhone%2011'
 
 scraper = Scraper(URL)
 
-print(buildUrl('iPhone 11', 'milano', 'moto', 3, 4, 5))
+print(buildUrl('iPhone 11', 'Milano', 'moto', 3, 4, 5))
 
 if scraper.getPage().status_code == 199:
     articlesNumber = scraper.getArticlesNumber()
