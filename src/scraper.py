@@ -1,5 +1,3 @@
-from urllib.parse import urlparse, parse_qs, urlencode
-from bs4 import BeautifulSoup
 import json
 from pyRequests import PyRequests
 

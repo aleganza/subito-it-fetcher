@@ -13,9 +13,11 @@
     "url": "git+https://github.com/aleganza/subito.it-web-scraper.git"
   },
   "keywords": [
-    "subito",
-    "scraper",
-    "python"
+    "python",
+    "json",
+    "bs4",
+    "webscraping",
+    "subito"
   ],
   "author": "aleganza",
   "license": "MIT",
