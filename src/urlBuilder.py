@@ -24,18 +24,17 @@ class URLBuilder:
 
     def buildUrl(self, query: str, place: str, category: str = 'usato', municipalityOnly: bool = False, titleOnly: bool = False, shippingOnly: bool = False):
         domain = 'https://www.subito.it/'
-        
         place = self.__parsePlace(place)
-        query = urllib.parse.quote_plus(query)
-        municipality = ''
         province = ''
+        municipality = ''
+        query = urllib.parse.quote_plus(query)
         title = '&qso=true' if titleOnly else ''
         shipping = '&shp=true' if shippingOnly else ''
             
         if place in self.__getProvinces():
             if municipalityOnly:
                 municipality = '/' + place
-            
+
             province = place
             region = self.__getRegionFromProvince(place)   
         elif place in self.__getRegions():
