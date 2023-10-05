@@ -3,11 +3,10 @@ import requests
 
 class PyRequests:  
     def getSoupFromRequest(self, url: str):
-        page = requests.get(url)
-        if page.status_code != 200:
-            return False
+        try:
+            resp = requests.get(url)
+            resp.raise_for_status()
+        except requests.exceptions.HTTPError as err:
+            raise SystemExit(err)
         
-        return BeautifulSoup(page.content, 'html.parser')
-        # except requests.exceptions.HTTPError as err:
-        #     print(page.status_code)
-        #     raise SystemExit(err)
+        return BeautifulSoup(resp.content, 'html.parser')
