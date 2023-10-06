@@ -1,4 +1,4 @@
-# Subito.it Web Scraper
+# Subito.it Searcher
 
 ```
 url = urlBuilder.buildUrl('iPhone 14 Pro', 'Ferrara', 'usato', False, True, False)
