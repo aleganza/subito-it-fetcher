@@ -5,6 +5,8 @@ from scraper import Scraper
 urlBuilder = URLBuilder()
 scraper = Scraper()
 
+
+
 url = urlBuilder.buildUrl('iPhone 14 Pro', 'Bologna', 'usato', False, True, False)
 print(url)
 articles = scraper.getArticles(url)
